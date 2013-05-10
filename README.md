@@ -7,7 +7,7 @@ As this needs to fire before any other code loads, it must to go in the header o
 
 Also, so that any other scripts can access it, I reccommend adding it as a global object
 
-	window.AgeGate = new AgeGate(18,'afterDarkFilmMusicFood');
+	window.ageGate = new AgeGate(18,'afterDarkFilmMusicFood');
 
     var cookie = ADAgeGate.getCookie();
               
