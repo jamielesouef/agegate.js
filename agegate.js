@@ -78,7 +78,6 @@ AgeGate.prototype = {
         return this.validAge
     },
     setCookieAsValid : function(){
-        console.log('setting cookie');
         this.docCookies.setItem(this.cookieName,'ageCheckValid=true',0,'/');
     },
 
