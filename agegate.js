@@ -1,13 +1,12 @@
 //Age gate must go inline so that it fires first up
 
-"use strict";
-
 /**
  * [AgeGate Constructor]
  * @param {int} restrict    the minimum legal age to view site
  * @param {string} cookieName unique name for the cookie
  */
 var AgeGate = function (restrict, cookieName){
+    "use strict";
     this.host        =  window.location.hostname;
     this.http        = (location.protocol === 'https:')? 'https://' : 'http://';
     this.path        = window.location.pathname;
@@ -107,7 +106,7 @@ AgeGate.prototype = {
         birthday = (Math.round(birthday.getTime()) / 1000);
         
         this.validAge = birthday < today? true : false;
-        if (!this.validAge) alert('You are not 18 are you...?');
+       
         return this.validAge
     },
     /**
