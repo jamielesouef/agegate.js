@@ -11,18 +11,15 @@ var AgeGate = function (restrict, cookieName){
     this.http        = (location.protocol === 'https:')? 'https://' : 'http://';
     this.path        = window.location.pathname;
     this.oldHash     = (window.location.href.split("#").slice(1).join('#') || "");
-    this.ageGateUrl    = this.http 
-                        + this.host 
-                        + '/#/age-gate';
+    this.ageGateUrl    = this.http + this.host + '/#/age-gate';
     this.restrict    = restrict || 18;
     this.cookieName  = cookieName || window.location.hostname + 'AgeGate';
     this.haveCookie  = false;
     this.secondsInYear = 31556926;
     this.validAge = false;
-}
+};
 
 AgeGate.prototype = {
-   
     //  :: cookies.js ::
     //
     //  A complete cookies reader/writer framework with full unicode support.
@@ -99,15 +96,14 @@ AgeGate.prototype = {
      * @return {bool}          true|false
      */
     validate : function(birthday){
-        var today = new Date(),
-        
+        var now = new Date(),
         //convert dates to Unix Timestamps by dividing them by 1000
-        today = (Math.round(today.getTime() / 1000)) - (this.secondsInYear * this.restrict);
+        today = (Math.round(now.getTime() / 1000)) - (this.secondsInYear * this.restrict);
         birthday = (Math.round(birthday.getTime()) / 1000);
-        
+
         this.validAge = birthday < today? true : false;
-       
-        return this.validAge
+
+        return this.validAge;
     },
     /**
      * Wrapper to set the cookie
@@ -128,4 +124,4 @@ AgeGate.prototype = {
     redirectToReferrer : function(){
         liocation = this.theUrl;
     }
-}
+};

@@ -7,20 +7,40 @@ As this needs to fire before any other code loads, it must to go in the header o
 
 Also, so that any other scripts can access it, I reccommend adding it as a global object
 
-	window.ageGate = new AgeGate(18,'myNewAgeGate');
+	<script>
+	    window.ageGate = new AgeGate(18,'myNewAgeGate');
 
-    var cookie = ADAgeGate.getCookie();
-              
-	if ( cookie && cookie === 'ageCheckVale=true' ){
-		console.log('valid cookie, enjoy!');
-	} else {
-		// we has no cookies
-		console.log('We has no cookie');
-		if ( window.location.pathname !== '/age-gate/'){
-			location = ADAgeGate.ageGateUrl;
-		}
-	}
-	
+	    var cookie = ageGate.getCookie(),
+	        dateForm = document.getElementById('dob'),
+	        message = document.getElementById('message'),
+	        button = document.getElementById('saveCookie');
+
+	    if ( cookie && cookie === 'ageCheckValid=true' ){
+	       message.innerHTML = 'Welcome back!'
+	       dateForm.remove();
+	    } else {
+	        message.innerHTML = 'We need to check your age';
+	        dateForm.addEventListener('change', function(){
+	           var value = dateForm.value.split('-'),
+	                date = new Date(value[0],value[1],value[2],0,0,0,0),
+	                valid = false;
+
+	            valid = ageGate.validate(date);
+	            if (valid){
+	                message.innerHTML = 'Enjoy your visit';
+	                button.addEventListener('click', function(e){
+	                    e.preventDefault();
+	                    dateForm.style.display = 'none';
+	                    ageGate.setCookieAsValid();
+	                })
+	                button.style.display = 'block';
+	            } else {
+	                message.innerHTML = 'Too young bra!';
+	                button.style.display = 'none';
+	            }
+	        })
+	    }
+	</script>   	
 And you're done!
 
 Use this in conjunction with `<noscript>` in order to block what you don't want seen if the user has Javascript turned off
