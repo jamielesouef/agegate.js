@@ -24,9 +24,7 @@ Also, so that any other scripts can access it, I reccommend adding it as a globa
 	           var value = dateForm.value.split('-'),
 	                date = new Date(value[0],value[1],value[2],0,0,0,0),
 	                valid = false;
-
-	            valid = ageGate.validate(date);
-	            if (valid){
+	            if (ageGate.validate(date)){
 	                message.innerHTML = 'Enjoy your visit';
 	                button.addEventListener('click', function(e){
 	                    e.preventDefault();
